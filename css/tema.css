@@ -1,0 +1,11 @@
+h1{
+    color: bold;
+    border: 1px solid;
+    border-radius: 15px;
+}
+body{
+    background-color: rgb(37, 151, 152);
+}
+.tabli{
+    margin: 0 auto;
+}

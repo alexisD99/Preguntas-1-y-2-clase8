@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/tema.css">
+    <title>Boleta de Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+        button {
+            width: 48%;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    <script>
+        const productos = {
+            "Arroz costeño 3/4": 4.50,
+            "Azúcar paisana 1k": 6.20,
+            "Chocolate Donofrio": 1.20,
+            "Aceite primor premium": 12.50
+        };
+
+        function actualizarPrecio() {
+            const selectProducto = document.getElementById("producto");
+            const precioInput = document.getElementById("precio");
+            const precio = productos[selectProducto.value];
+            precioInput.value = precio ? precio.toFixed(2) : '';
+        }
+
+        function calcular() {
+            const precio = parseFloat(document.getElementById("precio").value);
+            const cantidad = parseFloat(document.getElementById("cantidad").value);
+            const descuento = parseFloat(document.getElementById("descuento").value);
+
+            if (isNaN(cantidad) || cantidad <= 0) {
+                alert("La cantidad debe ser mayor a 0");
+                return;
+            }
+            if (isNaN(descuento) || descuento < 0 || descuento > 100) {
+                alert("El descuento debe estar entre 0 y 100");
+                return;
+            }
+
+            const importeSoles = (cantidad * (precio - (precio * descuento / 100))).toFixed(2);
+            const tipoCambio = 3.8; // Tipo de cambio USD a Soles
+            const importeDolares = (importeSoles / tipoCambio).toFixed(2);
+
+            document.getElementById("importeSoles").value = importeSoles;
+            document.getElementById("importeDolares").value = importeDolares;
+        }
+
+        function limpiar() {
+            document.getElementById("producto").selectedIndex = 0;
+            document.getElementById("precio").value = "";
+            document.getElementById("cantidad").value = "";
+            document.getElementById("descuento").value = "";
+            document.getElementById("importeSoles").value = "";
+            document.getElementById("importeDolares").value = "";
+        }
+    </script>
+</head>
+<body>
+    <table class="tabli">
+        <tr>
+            <td><img src="img/WhatsApp Image 2024-06-26 at 10.59.19 AM.jpeg" alt=""></td>
+        </tr>
+    </table>
+    <h1>Boleta de Venta</h1>
+    <table>
+        <tr>
+            <td>Producto</td>
+            <td>
+                <select id="producto" onchange="actualizarPrecio()">
+                    <option value="">Seleccione un producto</option>
+                    <option value="Arroz costeño 3/4">Arroz costeño 3/4</option>
+                    <option value="Azúcar paisana 1k">Azúcar paisana 1k</option>
+                    <option value="Chocolate Donofrio">Chocolate Donofrio</option>
+                    <option value="Aceite primor premium">Aceite primor premium</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Precio S/</td>
+            <td><input type="text" id="precio" disabled></td>
+        </tr>
+        <tr>
+            <td>Cantidad</td>
+            <td><input type="number" id="cantidad" min="1"></td>
+        </tr>
+        <tr>
+            <td>Descuento %</td>
+            <td><input type="number" id="descuento" min="0" max="100"></td>
+        </tr>
+        <tr>
+            <td>Importe S/</td>
+            <td><input type="text" id="importeSoles" disabled></td>
+        </tr>
+        <tr>
+            <td>Importe US$</td>
+            <td><input type="text" id="importeDolares" disabled></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="button-container">
+                <button onclick="calcular()">Calcular</button>
+                <button onclick="limpiar()">Limpiar</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

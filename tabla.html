@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Multiplicar</title>
+    <script>
+        function calcular(){
+            //Obtener el numero
+            let xn = parseInt(document.getElementById("txtNum").value);
+            //validar
+            if (xn>0){
+                let linea ="";// Es un string o cadena
+                for(let i=1 ; i <=12 ; i++){
+                    linea =linea + xn + " x "+ i + " = "+ xn*i + "<br>";
+                }
+                document.getElementById("Zona").innerHTML= linea;
+            }else{
+                alert("Verificar número mayor a 0");
+            }
+        }
+        function limpiar(){
+            document.getElementById("txtNum").value="";
+            document.getElementById("Zona").innerHTML="";
+        }
+    </script>
+</head>
+<body>
+    <table style="margin: 0 auto;">
+        <tr>
+            <td>Número</td>
+            <td><input type="text" id="txtNum"></td>
+        </tr>
+        <tr>
+            <td><button onclick="calcular();">Calcular</button></td>
+            <td><button onclick="limpiar();">Limpiar</button></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="Zona">
+
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
